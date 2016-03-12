@@ -21,6 +21,32 @@
          ,@ops
          (if (> ,bend ,bstart) (delete-region ,bstart ,bend))))))
 
+(defun eu/skip-non-empty-lines (forwarding)
+  (move-beginning-of-line nil)
+  (let ((last-line-beginning (point))
+	(cur-line-beginning (point))
+	(line-empty (looking-at "^\\s-*$")))
+    (while (and (not line-empty) (= 0 (forward-line (if forwarding 1 -1))))        
+      (setq line-empty (looking-at "^\\s-*$"))
+      (setq last-line-beginning cur-line-beginning)
+      (setq cur-line-beginning (point)))
+    (if (not forwarding) (goto-char last-line-beginning))))
+
+(defun eu/mark-non-empty-lines ()
+  (interactive)
+  (let* ((original-line-start (line-beginning-position))
+	 (block-start (save-excursion 
+			(eu/skip-non-empty-lines nil)
+	 		(point)))
+	 (block-end (save-excursion
+		      (eu/skip-non-empty-lines t)
+		      (point))))
+    (if (and (= block-start block-end))
+	(message "The line is empty.")
+      (push-mark (point))
+      (push-mark block-end nil t)
+      (goto-char block-start))))        
+
 (defun eu/collapse-ahead ()
   (interactive)
   (eu/collapse-lines t))
