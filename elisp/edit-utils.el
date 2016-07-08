@@ -60,5 +60,20 @@
   (eu/collapse-ahead)
   (eu/collapse-back))
 
+;;; Functions below are from org-metaup/org-metadown
+
+(defun eu/swap-line-up ()
+  "Swap the current line with the line above."
+  (interactive)
+  (transpose-lines 1)
+  (beginning-of-line -1))
+
+(defun eu/swap-line-down ()
+  "Swap current line with the line below."
+  (interactive)
+  (beginning-of-line 2) (transpose-lines 1) (beginning-of-line 0))
+
+;;;
+
 (provide 'edit-utils)
 ;;; edit-utils.el ends here
