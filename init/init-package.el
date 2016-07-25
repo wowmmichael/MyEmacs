@@ -44,7 +44,7 @@
 
 (use-package project-explorer
   :ensure t
-  :bind (("C-o p" . project-explorer-open))
+  :bind (("C-o e" . project-explorer-open))
   :commands (project-explorer-helm)
   :config
   (use-package projectile))
