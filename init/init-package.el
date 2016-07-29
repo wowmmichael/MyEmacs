@@ -21,6 +21,8 @@
     sass-mode
     jade-mode
     flycheck
+
+	powershell ;; if on windows
     ))
 
 (use-package sublime-themes
@@ -112,6 +114,11 @@
 			       '(emacs-lisp-checkdoc
 				 json-jsonlist
 				 javascript-jshint)))))
+
+(when *is-win*
+  (use-package powershell
+			   :ensure t
+			   :mode ".\\psm1$" ".\\ps1$"))
 
 
 ;;; require package in MyEmacs/elisp
