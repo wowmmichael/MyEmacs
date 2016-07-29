@@ -3,6 +3,7 @@
 (windmove-default-keybindings)
 
 (set-scroll-bar-mode nil)
+(tool-bar-mode nil)
 
 (setq indent-tabs-mode nil)
 (show-paren-mode)
