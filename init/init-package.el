@@ -8,6 +8,7 @@
     helm
     project-explorer
     projectile
+    helm-projectile
     expand-region
     ace-jump-mode
     multiple-cursors
@@ -43,6 +44,12 @@
          ("C-x C-f" . helm-find-files)
          ("C-x l" . helm-occur)
          ("C-x C-o" . project-explorer-helm)))
+
+(use-package helm-projectile
+  :ensure t
+  :bind (("C-o s" . helm-projectile-switch-project))
+  :config
+  (helm-projectile-on))
 
 (use-package project-explorer
   :ensure t
