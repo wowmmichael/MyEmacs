@@ -49,7 +49,8 @@
   :ensure t
   :bind (("C-o s" . helm-projectile-switch-project))
   :config
-  (helm-projectile-on))
+  (progn (projectile-global-mode)
+	 (helm-projectile-on)))
 
 (use-package project-explorer
   :ensure t
@@ -124,8 +125,8 @@
 
 (when *is-win*
   (use-package powershell
-			   :ensure t
-			   :mode ".\\psm1$" ".\\ps1$"))
+    :ensure t
+    :mode ".\\psm1$" ".\\ps1$"))
 
 
 ;;; require package in MyEmacs/elisp

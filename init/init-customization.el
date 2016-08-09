@@ -29,4 +29,7 @@
  backup-directory-alist (list (cons "." backup-dir))
  auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
+(when *is-win*
+  (setq exec-path (cons "c:/cygwin64/bin" exec-path)))
+
 (provide 'init-customization)
