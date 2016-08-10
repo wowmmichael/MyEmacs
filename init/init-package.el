@@ -21,9 +21,11 @@
     js2-mode
     sass-mode
     jade-mode
+    json-mode
+    
     flycheck
 
-	powershell ;; if on windows
+    powershell ;; if on windows
     ))
 
 (use-package sublime-themes
@@ -101,7 +103,9 @@
 
 (use-package sass-mode
   :ensure t
-  :mode "\\.scss$")
+  :mode "\\.scss$"
+  :config
+  (setq sass-indent-offset 4))
 
 (use-package js2-mode
   :ensure t
@@ -110,6 +114,10 @@
 (use-package jade-mode
   :ensure t
   :mode "\\.jade$")
+
+(use-package json-mode
+  :ensure t
+  :mode "\\.json$")
 
 (use-package flycheck
   :ensure t
@@ -136,6 +144,7 @@
 (use-package edit-utils
   :bind (("<M-up>" . eu/swap-line-up)
 	 ("<M-down>" . eu/swap-line-down)
+	 ("C-o f" . eu/indent-buffer)
 	 ("C-o h" . eu/collapse-around)))
 
 
