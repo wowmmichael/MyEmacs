@@ -32,4 +32,12 @@
 (when *is-win*
   (setq exec-path (cons "c:/cygwin64/bin" exec-path)))
 
+(defun my-prog-nuke-trailing-whitespace ()
+  (when (derived-mode-p 'prog-mode)
+    (progn (delete-trailing-whitespace)
+	   (untabify (point-min) (point-max)))))
+
+(add-hook 'before-save-hook
+	  'my-prog-nuke-trailing-whitespace)
+
 (provide 'init-customization)
