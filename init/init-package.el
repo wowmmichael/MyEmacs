@@ -23,7 +23,7 @@
     jade-mode
     flycheck
 
-	powershell ;; if on windows
+    powershell ;; if on windows
     ))
 
 (use-package sublime-themes
@@ -50,7 +50,7 @@
   :bind (("C-o s" . helm-projectile-switch-project))
   :config
   (progn (projectile-global-mode)
-	 (helm-projectile-on)))
+         (helm-projectile-on)))
 
 (use-package project-explorer
   :ensure t
@@ -116,17 +116,19 @@
   :config
   (progn (global-flycheck-mode)
          (setq-default flycheck-temp-prefix ".flycheck")
-	 (setq-default flycheck-emacs-lisp-load-path 'inherit)
+         (setq-default flycheck-emacs-lisp-load-path 'inherit)
          (setq-default flycheck-disabled-checkers
                        (append flycheck-disabled-checkers
-			       '(emacs-lisp-checkdoc
-				 json-jsonlist
-				 javascript-jshint)))))
+                               '(emacs-lisp-checkdoc
+                                 json-jsonlist
+                                 javascript-jshint)))))
 
 (when *is-win*
   (use-package powershell
     :ensure t
-    :mode ".\\psm1$" ".\\ps1$"))
+    :config
+    (progn (add-to-list 'auto-mode-alist '("\\.psm1$" . powershell-mode))
+           (add-to-list 'auto-mode-alist '("\\.ps1$" . powershell-mode)))))
 
 
 ;;; require package in MyEmacs/elisp
@@ -135,8 +137,8 @@
 
 (use-package edit-utils
   :bind (("<M-up>" . eu/swap-line-up)
-	 ("<M-down>" . eu/swap-line-down)
-	 ("C-o h" . eu/collapse-around)))
+         ("<M-down>" . eu/swap-line-down)
+         ("C-o h" . eu/collapse-around)))
 
 
 (provide 'init-package)
