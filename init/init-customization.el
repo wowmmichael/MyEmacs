@@ -10,7 +10,6 @@
 
 (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
 
-
 (defconst backup-dir
   (expand-file-name (concat "backups/" (user-real-login-name) "/")
                     user-emacs-directory)

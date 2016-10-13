@@ -24,6 +24,8 @@
     js2-mode
     sass-mode
     jade-mode
+    tide
+
     flycheck
 
     powershell ;; if on windows
@@ -85,6 +87,7 @@
 
 (use-package company
   :ensure t
+  :bind (("C-o SPC" . company-dabbrev-code))
   :config
   (progn (global-company-mode)
          (setq company-backends
@@ -136,6 +139,13 @@
 (use-package jade-mode
   :ensure t
   :mode "\\.jade$")
+
+(use-package tide
+  :ensure t
+  :config
+  (progn (add-hook 'typescript-mode-hook 'tide-setup)
+         (add-hook 'js2-mode-hook 'tide-setup)
+         (add-hook 'before-save-hook 'tide-format-before-save)))
 
 (use-package flycheck
   :ensure t
