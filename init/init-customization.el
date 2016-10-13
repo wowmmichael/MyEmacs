@@ -42,5 +42,4 @@
 (add-hook 'before-save-hook
           'my-prog-nuke-trailing-whitespace)
 
-
 (provide 'init-customization)

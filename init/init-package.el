@@ -12,7 +12,10 @@
     expand-region
     ace-jump-mode
     multiple-cursors
-    auto-complete
+    ;;    auto-complete
+    company
+    company-statistics
+
     buffer-move
     yasnippet
     paredit
@@ -75,10 +78,33 @@
          ("C-o a" . mc/mark-all-like-this)
          ("C-o r" . mc/set-rectangular-region-anchor)))
 
-(use-package auto-complete
+;; (use-package auto-complete
+;;   :ensure t
+;;   :config
+;;   (global-auto-complete-mode))
+
+(use-package company
   :ensure t
   :config
-  (global-auto-complete-mode))
+  (progn (global-company-mode)
+         (setq company-backends
+               '((company-abbrev :seperate company-dabbrev)
+                 (company-files
+                  company-keywords
+                  company-capf
+                  company-yasnippet)))
+         (add-hook 'lisp-interaction-mode-hook
+                   (lambda()
+                     (add-to-list (make-local-variable 'company-backends)
+                                  'company-elisp)))
+         (custom-set-variables
+          '(company-dabbrev-minimum-length 2)
+          '(company-minimum-prefix-length 2))))
+
+(use-package company-statistics
+  :ensure t
+  :config
+  (company-statistics-mode))
 
 (use-package buffer-move
   :ensure t
