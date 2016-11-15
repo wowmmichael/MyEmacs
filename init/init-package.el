@@ -12,7 +12,10 @@
     expand-region
     ace-jump-mode
     multiple-cursors
-    auto-complete
+    ;;    auto-complete
+    company
+    company-statistics
+
     buffer-move
     yasnippet
     paredit
@@ -21,8 +24,11 @@
     js2-mode
     sass-mode
     jade-mode
+
     json-mode
     
+    tide
+    haskell-mode
     flycheck
 
     powershell ;; if on windows
@@ -52,7 +58,7 @@
   :bind (("C-o s" . helm-projectile-switch-project))
   :config
   (progn (projectile-global-mode)
-	 (helm-projectile-on)))
+         (helm-projectile-on)))
 
 (use-package project-explorer
   :ensure t
@@ -77,10 +83,34 @@
          ("C-o a" . mc/mark-all-like-this)
          ("C-o r" . mc/set-rectangular-region-anchor)))
 
-(use-package auto-complete
+;; (use-package auto-complete
+;;   :ensure t
+;;   :config
+;;   (global-auto-complete-mode))
+
+(use-package company
+  :ensure t
+  :bind (("C-o SPC" . company-dabbrev-code))
+  :config
+  (progn (global-company-mode)
+         (setq company-backends
+               '((company-abbrev :seperate company-dabbrev)
+                 (company-files
+                  company-keywords
+                  company-capf
+                  company-yasnippet)))
+         (add-hook 'lisp-interaction-mode-hook
+                   (lambda()
+                     (add-to-list (make-local-variable 'company-backends)
+                                  'company-elisp)))
+         (custom-set-variables
+          '(company-dabbrev-minimum-length 2)
+          '(company-minimum-prefix-length 2))))
+
+(use-package company-statistics
   :ensure t
   :config
-  (global-auto-complete-mode))
+  (company-statistics-mode))
 
 (use-package buffer-move
   :ensure t
@@ -115,26 +145,52 @@
   :ensure t
   :mode "\\.jade$")
 
+
 (use-package json-mode
   :ensure t
   :mode "\\.json$")
 
+(use-package tide
+  :ensure t
+  :config
+  (progn (add-hook 'typescript-mode-hook 'tide-setup)
+         (add-hook 'js2-mode-hook 'tide-setup)
+         (add-hook 'before-save-hook 'tide-format-before-save)))
+
+(use-package haskell-mode
+  :ensure t
+  :config
+  (progn (add-hook 'haskell-mode-hook
+                   (lambda ()
+                     (set (make-local-variable 'company-backends)
+                          (append '((company-capf company-dabbrev-code))
+                                  company-backends))))))
+
+
+(use-package flycheck-haskell
+  :ensure t
+  :config
+  (eval-after-load 'flycheck
+    '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)))
+
+
 (use-package flycheck
   :ensure t
   :config
-  (progn (global-flycheck-mode)
-         (setq-default flycheck-temp-prefix ".flycheck")
-	 (setq-default flycheck-emacs-lisp-load-path 'inherit)
+  (progn (setq-default flycheck-temp-prefix ".flycheck")
+         (setq-default flycheck-emacs-lisp-load-path 'inherit)
          (setq-default flycheck-disabled-checkers
                        (append flycheck-disabled-checkers
-			       '(emacs-lisp-checkdoc
-				 json-jsonlist
-				 javascript-jshint)))))
+                               '(emacs-lisp-checkdoc
+                                 json-jsonlist
+                                 javascript-jshint)))))
 
 (when *is-win*
   (use-package powershell
     :ensure t
-    :mode ".\\psm1$" ".\\ps1$"))
+    :config
+    (progn (add-to-list 'auto-mode-alist '("\\.psm1$" . powershell-mode))
+           (add-to-list 'auto-mode-alist '("\\.ps1$" . powershell-mode)))))
 
 
 ;;; require package in MyEmacs/elisp
@@ -146,6 +202,5 @@
 	 ("<M-down>" . eu/swap-line-down)
 	 ("C-o f" . eu/indent-buffer)
 	 ("C-o h" . eu/collapse-around)))
-
 
 (provide 'init-package)
