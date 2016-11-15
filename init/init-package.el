@@ -26,6 +26,7 @@
     jade-mode
     tide
 
+    haskell-mode
     flycheck
 
     powershell ;; if on windows
@@ -147,11 +148,26 @@
          (add-hook 'js2-mode-hook 'tide-setup)
          (add-hook 'before-save-hook 'tide-format-before-save)))
 
+(use-package haskell-mode
+  :ensure t
+  :config
+  (progn (add-hook 'haskell-mode-hook
+                   (lambda ()
+                     (set (make-local-variable 'company-backends)
+                          (append '((company-capf company-dabbrev-code))
+                                  company-backends))))))
+
+
+(use-package flycheck-haskell
+  :ensure t
+  :config
+  (eval-after-load 'flycheck
+    '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)))
+
 (use-package flycheck
   :ensure t
   :config
-  (progn (global-flycheck-mode)
-         (setq-default flycheck-temp-prefix ".flycheck")
+  (progn (setq-default flycheck-temp-prefix ".flycheck")
          (setq-default flycheck-emacs-lisp-load-path 'inherit)
          (setq-default flycheck-disabled-checkers
                        (append flycheck-disabled-checkers
