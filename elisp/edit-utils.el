@@ -75,5 +75,10 @@
 
 ;;;
 
+(defun eu/indent-buffer ()
+  "Reindent the current buffer without moving point."
+  (interactive)
+  (indent-region (point-min) (point-max)))
+
 (provide 'edit-utils)
 ;;; edit-utils.el ends here
