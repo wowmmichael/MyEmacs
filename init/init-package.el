@@ -148,6 +148,7 @@
          (add-hook 'js2-mode-hook 'tide-setup)
          (add-hook 'before-save-hook 'tide-format-before-save)))
 
+
 (use-package haskell-mode
   :ensure t
   :config
@@ -157,6 +158,12 @@
                           (append '((company-capf company-dabbrev-code))
                                   company-backends))))))
 
+(use-package ghc
+  :ensure t
+  :config
+  (progn (autoload 'ghc-init "ghc" nil t)
+         (autoload 'ghc-debug "ghc" nil t)
+         (add-hook 'haskell-mode-hook (lambda () (ghc-init)))))
 
 (use-package flycheck-haskell
   :ensure t
