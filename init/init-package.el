@@ -3,6 +3,7 @@
 (defvar my-ensured-packages
   '(
     use-package
+    s
     sublime-themes
     magit
     helm
@@ -26,9 +27,10 @@
     jade-mode
 
     json-mode
-    
+
     tide
     haskell-mode
+    elpy
     flycheck
 
     powershell ;; if on windows
@@ -39,6 +41,10 @@
   :demand
   :config
   (load-theme 'granger t))
+
+(use-package s
+  :ensure t
+  :demand)
 
 (use-package magit
   :ensure t
@@ -174,6 +180,16 @@
          (autoload 'ghc-debug "ghc" nil t)
          (add-hook 'haskell-mode-hook (lambda () (ghc-init)))))
 
+(use-package elpy
+  :ensure t
+  :config
+  (progn (elpy-enable)
+         (add-hook 'python-mode-hook
+                   (lambda ()
+                     (setq indent-tabs-mode nil)
+                     (setq tab-width 4)
+                     (setq python-indent 4)))))
+
 (use-package flycheck-haskell
   :ensure t
   :config
@@ -192,6 +208,7 @@
                                  json-jsonlist
                                  javascript-jshint)))))
 
+
 (when *is-win*
   (use-package powershell
     :ensure t
@@ -206,8 +223,8 @@
 
 (use-package edit-utils
   :bind (("<M-up>" . eu/swap-line-up)
-	 ("<M-down>" . eu/swap-line-down)
-	 ("C-o f" . eu/indent-buffer)
-	 ("C-o h" . eu/collapse-around)))
+         ("<M-down>" . eu/swap-line-down)
+         ("C-o f" . eu/indent-buffer)
+         ("C-o h" . eu/collapse-around)))
 
 (provide 'init-package)
