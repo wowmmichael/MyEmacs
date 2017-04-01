@@ -134,7 +134,7 @@
 (use-package paredit
   :ensure t)
 
-(use-pacakge markdown-mode
+(use-package markdown-mode
   :ensure t)
 
 (use-package web-mode
