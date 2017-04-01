@@ -21,6 +21,7 @@
     yasnippet
     paredit
 
+    markdown-mode
     web-mode
     js2-mode
     sass-mode
@@ -131,6 +132,9 @@
   (yas-global-mode t))
 
 (use-package paredit
+  :ensure t)
+
+(use-pacakge markdown-mode
   :ensure t)
 
 (use-package web-mode
