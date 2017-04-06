@@ -223,7 +223,8 @@
 
 ;;; require package in MyEmacs/elisp
 (use-package sys-utils
-  :bind (("C-x C-s" . su/start-cmd)))
+  :bind (("C-x C-s" . su/start-cmd)
+         ("C-o C-e" . su/start-explorer)))
 
 (use-package edit-utils
   :bind (("<M-up>" . eu/swap-line-up)
