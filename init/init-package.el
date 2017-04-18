@@ -32,6 +32,8 @@
     tide
     haskell-mode
     elpy
+    sphinx-doc
+
     flycheck
 
     powershell ;; if on windows
@@ -49,7 +51,10 @@
 
 (use-package magit
   :ensure t
-  :bind (("C-o g" . magit-status)))
+  :bind (("C-o g" . magit-status))
+  :config
+  (progn ((setq magit-commit-show-diff nil
+                magit-revert-buffers 1))))
 
 (use-package helm
   :ensure t
@@ -84,8 +89,7 @@
 
 (use-package multiple-cursors
   :ensure t
-  :bind (("C-o n" . mc/mark-next-like-this)
-         ("C-o p" . mc/mark-previous-like-this)
+  :bind (("C-o m" . mc/mark-more-like-this-extended)
          ("C-o |" . mc/edit-lines)
          ("C-o a" . mc/mark-all-like-this)
          ("C-o r" . mc/set-rectangular-region-anchor)))
@@ -193,6 +197,9 @@
                      (setq indent-tabs-mode nil)
                      (setq tab-width 4)
                      (setq python-indent 4)))))
+
+(use-package sphinx-doc
+  :ensure t)
 
 (use-package flycheck-haskell
   :ensure t
