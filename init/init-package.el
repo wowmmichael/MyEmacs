@@ -12,6 +12,9 @@
     helm-projectile
     expand-region
     ace-jump-mode
+    ace-jump-zap
+    ace-mc
+
     multiple-cursors
     ;;    auto-complete
     company
@@ -88,11 +91,16 @@
   :bind (("C-i" . ace-jump-mode)))
 
 (use-package multiple-cursors
+  :ensure t)
+
+(use-package ace-mc
   :ensure t
-  :bind (("C-o m" . mc/mark-more-like-this-extended)
-         ("C-o |" . mc/edit-lines)
-         ("C-o a" . mc/mark-all-like-this)
-         ("C-o r" . mc/set-rectangular-region-anchor)))
+  :bind (("C-o m" . ace-mc-add-multiple-cursors)))
+
+(use-package ace-jump-zap
+  :ensure t
+  :bind (("C-o z" . ace-jump-zap-to-char)))
+
 
 ;; (use-package auto-complete
 ;;   :ensure t
