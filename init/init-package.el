@@ -7,10 +7,14 @@
     sublime-themes
     magit
     helm
-    project-explorer
+
+    ;; project-explorer
+    neotree
+
     projectile
     helm-projectile
     expand-region
+
     ace-jump-mode
     ace-jump-zap
     ace-mc
@@ -65,8 +69,7 @@
          ("M-y" . helm-show-kill-ring)
          ("C-x b" . helm-mini)
          ("C-x C-f" . helm-find-files)
-         ("C-x l" . helm-occur)
-         ("C-x C-o" . project-explorer-helm)))
+         ("C-x l" . helm-occur)))
 
 (use-package helm-projectile
   :ensure t
@@ -75,12 +78,9 @@
   (progn (projectile-global-mode)
          (helm-projectile-on)))
 
-(use-package project-explorer
+(use-package neotree
   :ensure t
-  :bind (("C-o e" . project-explorer-open))
-  :commands (project-explorer-helm)
-  :config
-  (use-package projectile))
+  :bind (("C-o e" . neotree-toggle)))
 
 (use-package expand-region
   :ensure t
@@ -88,7 +88,7 @@
 
 (use-package ace-jump-mode
   :ensure t
-  :bind (("C-i" . ace-jump-mode)))
+  :bind (("C-t" . ace-jump-mode)))
 
 (use-package multiple-cursors
   :ensure t)

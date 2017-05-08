@@ -1,5 +1,5 @@
 (global-unset-key "\C-o")
-(global-unset-key "\C-i")
+(global-unset-key "\C-t")
 
 (windmove-default-keybindings)
 
