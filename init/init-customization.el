@@ -41,4 +41,9 @@
 (add-hook 'before-save-hook
           'my-prog-nuke-trailing-whitespace)
 
+(setq inhibit-compacting-font-caches t)
+
+(setq org-export-backends
+      (quote (ascii html icalendar latex md)))
+
 (provide 'init-customization)

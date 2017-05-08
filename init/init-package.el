@@ -53,8 +53,8 @@
   :ensure t
   :bind (("C-o g" . magit-status))
   :config
-  (progn ((setq magit-commit-show-diff nil
-                magit-revert-buffers 1))))
+  (progn (setq magit-commit-show-diff nil)
+         (setq magit-revert-buffers 1)))
 
 (use-package helm
   :ensure t
@@ -85,7 +85,7 @@
 
 (use-package ace-jump-mode
   :ensure t
-  :bind (("C-x ?" . ace-jump-mode)))
+  :bind (("C-o ?" . ace-jump-mode)))
 
 (use-package multiple-cursors
   :ensure t
