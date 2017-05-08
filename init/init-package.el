@@ -85,7 +85,7 @@
 
 (use-package ace-jump-mode
   :ensure t
-  :bind (("C-o ?" . ace-jump-mode)))
+  :bind (("C-i" . ace-jump-mode)))
 
 (use-package multiple-cursors
   :ensure t
