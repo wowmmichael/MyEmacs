@@ -7,11 +7,18 @@
     sublime-themes
     magit
     helm
-    project-explorer
+
+    ;; project-explorer
+    neotree
+
     projectile
     helm-projectile
     expand-region
+
     ace-jump-mode
+    ace-jump-zap
+    ace-mc
+
     multiple-cursors
     ;;    auto-complete
     company
@@ -32,6 +39,8 @@
     tide
     haskell-mode
     elpy
+    sphinx-doc
+
     flycheck
 
     powershell ;; if on windows
@@ -49,7 +58,10 @@
 
 (use-package magit
   :ensure t
-  :bind (("C-o g" . magit-status)))
+  :bind (("C-o g" . magit-status))
+  :config
+  (progn (setq magit-commit-show-diff nil)
+         (setq magit-revert-buffers 1)))
 
 (use-package helm
   :ensure t
@@ -57,8 +69,7 @@
          ("M-y" . helm-show-kill-ring)
          ("C-x b" . helm-mini)
          ("C-x C-f" . helm-find-files)
-         ("C-x l" . helm-occur)
-         ("C-x C-o" . project-explorer-helm)))
+         ("C-x l" . helm-occur)))
 
 (use-package helm-projectile
   :ensure t
@@ -67,12 +78,9 @@
   (progn (projectile-global-mode)
          (helm-projectile-on)))
 
-(use-package project-explorer
+(use-package neotree
   :ensure t
-  :bind (("C-o e" . project-explorer-open))
-  :commands (project-explorer-helm)
-  :config
-  (use-package projectile))
+  :bind (("C-o e" . neotree-toggle)))
 
 (use-package expand-region
   :ensure t
@@ -80,15 +88,19 @@
 
 (use-package ace-jump-mode
   :ensure t
-  :bind (("C-x ?" . ace-jump-mode)))
+  :bind (("C-t" . ace-jump-mode)))
 
 (use-package multiple-cursors
+  :ensure t)
+
+(use-package ace-mc
   :ensure t
-  :bind (("C-o n" . mc/mark-next-like-this)
-         ("C-o p" . mc/mark-previous-like-this)
-         ("C-o |" . mc/edit-lines)
-         ("C-o a" . mc/mark-all-like-this)
-         ("C-o r" . mc/set-rectangular-region-anchor)))
+  :bind (("C-o m" . ace-mc-add-multiple-cursors)))
+
+(use-package ace-jump-zap
+  :ensure t
+  :bind (("C-o z" . ace-jump-zap-to-char)))
+
 
 ;; (use-package auto-complete
 ;;   :ensure t
@@ -193,6 +205,9 @@
                      (setq indent-tabs-mode nil)
                      (setq tab-width 4)
                      (setq python-indent 4)))))
+
+(use-package sphinx-doc
+  :ensure t)
 
 (use-package flycheck-haskell
   :ensure t

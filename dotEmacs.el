@@ -11,10 +11,7 @@
 (require 'package)
 
 
-(setq package-archives '(("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-                         ("melpa" . "http://melpa.org/packages/")))
-
+(setq package-archives '(("melpa" . "http://melpa.org/packages/")))
 
 (package-initialize)
 
@@ -24,6 +21,3 @@
 
 (require 'init-customization)
 (require 'init-package)
-
-
-(put 'dired-find-alternate-file 'disabled nil)

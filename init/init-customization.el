@@ -1,4 +1,5 @@
 (global-unset-key "\C-o")
+(global-unset-key "\C-t")
 
 (windmove-default-keybindings)
 
@@ -44,5 +45,10 @@
 
 (add-hook 'before-save-hook
           'my-prog-nuke-trailing-whitespace)
+
+(setq inhibit-compacting-font-caches t)
+
+(setq org-export-backends
+      (quote (ascii html icalendar latex md)))
 
 (provide 'init-customization)
