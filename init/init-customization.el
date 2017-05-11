@@ -2,8 +2,12 @@
 
 (windmove-default-keybindings)
 
-(set-scroll-bar-mode nil)
-(tool-bar-mode -1)
+(if (display-graphic-p)
+    (progn
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1)))
+
+
 (setq indent-tabs-mode nil)
 (show-paren-mode)
 (electric-pair-mode)
