@@ -161,7 +161,10 @@
 
 (use-package js2-mode
   :ensure t
-  :mode "\\.js$")
+  :mode "\\.js$"
+  :config
+  (progn (setq js2-mode-show-parse-errors nil)
+         (setq js2-mode-show-strict-warnings nil)))
 
 (use-package jade-mode
   :ensure t
@@ -225,7 +228,10 @@
                        (append flycheck-disabled-checkers
                                '(emacs-lisp-checkdoc
                                  json-jsonlist
-                                 javascript-jshint)))))
+                                 javascript-jshint)))
+         (flycheck-add-mode 'javascript-eslint 'web-mode)
+         (setq-default flycheck-temp-prefix ".flycheck")
+         (global-flycheck-mode)))
 
 
 (when *is-win*
