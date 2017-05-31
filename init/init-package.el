@@ -80,7 +80,10 @@
 
 (use-package neotree
   :ensure t
-  :bind (("C-o e" . neotree-toggle)))
+  :config
+  (progn (setq-default neo-autorefresh nil))
+  :bind (("C-o e" . neotree-toggle)
+         ("C-o n f" . neotree-find)))
 
 (use-package expand-region
   :ensure t
@@ -244,7 +247,7 @@
 
 ;;; require package in MyEmacs/elisp
 (use-package sys-utils
-  :bind (("C-x C-s" . su/start-cmd)
+  :bind (("C-o C-s" . su/start-cmd)
          ("C-o C-e" . su/start-explorer)))
 
 (use-package edit-utils
