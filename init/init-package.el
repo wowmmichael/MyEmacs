@@ -20,7 +20,7 @@
     ace-mc
 
     multiple-cursors
-    ;;    auto-complete
+    ;; auto-complete
     company
     company-statistics
 
@@ -36,7 +36,7 @@
 
     json-mode
 
-    tide
+    ;; tide
     haskell-mode
     elpy
     sphinx-doc
@@ -45,6 +45,21 @@
 
     powershell ;; if on windows
     ))
+
+
+;;; require package in MyEmacs/elisp
+(use-package sys-utils
+  :bind (("C-o C-s" . su/start-cmd)
+         ("C-o C-e" . su/start-explorer)))
+
+(use-package edit-utils
+  :bind (("<M-up>" . eu/swap-line-up)
+         ("<M-down>" . eu/swap-line-down)
+         ("C-o f" . eu/indent-buffer)
+         ("C-o h" . eu/collapse-around)))
+
+(use-package js-utils)
+
 
 (use-package sublime-themes
   :ensure t
@@ -73,10 +88,8 @@
 
 (use-package helm-projectile
   :ensure t
-  :bind (("C-o s" . helm-projectile-switch-project))
-  :config
-  (progn (projectile-global-mode)
-         (helm-projectile-on)))
+  :bind (("C-o p" . helm-projectile-on)
+         ("C-o o" . helm-projectile-find-file-dwim)))
 
 (use-package neotree
   :ensure t
@@ -166,8 +179,7 @@
   :ensure t
   :mode "\\.js$"
   :config
-  (progn (setq js2-mode-show-parse-errors nil)
-         (setq js2-mode-show-strict-warnings nil)))
+  (progn (add-hook 'js2-mode-hook (lambda () (js-utils/update-flycheck-javascript-eslint-executable)))))
 
 (use-package jade-mode
   :ensure t
@@ -177,13 +189,6 @@
 (use-package json-mode
   :ensure t
   :mode "\\.json$")
-
-(use-package tide
-  :ensure t
-  :config
-  (progn (add-hook 'typescript-mode-hook 'tide-setup)
-         (add-hook 'js2-mode-hook 'tide-setup)
-         (add-hook 'before-save-hook 'tide-format-before-save)))
 
 
 (use-package haskell-mode
@@ -230,11 +235,11 @@
          (setq-default flycheck-disabled-checkers
                        (append flycheck-disabled-checkers
                                '(emacs-lisp-checkdoc
-                                 json-jsonlist
-                                 javascript-jshint)))
+                                 json-jsonlist)))
          (flycheck-add-mode 'javascript-eslint 'web-mode)
          (setq-default flycheck-temp-prefix ".flycheck")
          (global-flycheck-mode)))
+
 
 
 (when *is-win*
@@ -245,15 +250,5 @@
            (add-to-list 'auto-mode-alist '("\\.ps1$" . powershell-mode)))))
 
 
-;;; require package in MyEmacs/elisp
-(use-package sys-utils
-  :bind (("C-o C-s" . su/start-cmd)
-         ("C-o C-e" . su/start-explorer)))
-
-(use-package edit-utils
-  :bind (("<M-up>" . eu/swap-line-up)
-         ("<M-down>" . eu/swap-line-down)
-         ("C-o f" . eu/indent-buffer)
-         ("C-o h" . eu/collapse-around)))
 
 (provide 'init-package)
