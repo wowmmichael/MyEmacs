@@ -129,10 +129,9 @@
   :config
   (progn (global-company-mode)
          (setq company-backends
-               '((company-abbrev :seperate company-dabbrev)
+               '((company-dabbrev-code company-keywords company-capf :seperate)
+                 (company-abbrev :seperate company-dabbrev)
                  (company-files
-                  company-keywords
-                  company-capf
                   company-yasnippet)))
          (add-hook 'lisp-interaction-mode-hook
                    (lambda()
