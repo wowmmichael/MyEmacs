@@ -31,6 +31,9 @@
     markdown-mode
     web-mode
     js2-mode
+    js2-refactor
+    xref-js2 ;; depends on the_silver_searcher
+
     sass-mode
     jade-mode
 
@@ -59,6 +62,20 @@
          ("C-o h" . eu/collapse-around)))
 
 (use-package js-utils)
+
+
+(use-package spaceline
+  :ensure t
+  :demand
+  :config
+  (progn (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main))))
+         (if (boundp 'ns-use-srgb-colorspace)
+             (setq ns-use-srgb-colorspace nil))))
+
+(use-package spaceline-config :ensure spaceline
+  :config
+  (spaceline-helm-mode 1)
+  (spaceline-emacs-theme))
 
 
 (use-package sublime-themes
@@ -179,6 +196,20 @@
   :mode "\\.js$"
   :config
   (progn (add-hook 'js2-mode-hook (lambda () (js-utils/update-flycheck-javascript-eslint-executable)))))
+
+(use-package js2-refactor
+  :ensure t
+  :config
+  (progn (add-hook 'js2-mode-hook #'js2-refactor-mode)
+         (js2r-add-keybindings-with-prefix "C-c C-r")
+         (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
+
+(use-package xref-js2
+  :ensure t
+  :config
+  (progn (define-key js-mode-map (kbd "M-.") nil)
+         (add-hook 'js2-mode-hook (lambda ()
+                                    (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))))
 
 (use-package jade-mode
   :ensure t
