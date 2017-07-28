@@ -13,6 +13,10 @@
 
     projectile
     helm-projectile
+
+    window-purpose
+    shackle
+
     expand-region
 
     ace-jump-mode
@@ -106,8 +110,24 @@
 
 (use-package helm-projectile
   :ensure t
-  :bind (("C-o p" . helm-projectile-on)
-         ("C-o o" . helm-projectile-find-file-dwim)))
+  :bind (("C-o o" . helm-projectile-find-file-dwim)))
+
+(use-package window-purpose
+  :ensure t
+  :config
+  (progn (setq-default purpose-preferred-prompt 'helm)
+         (define-key purpose-mode-map (kbd "C-x b") nil)
+         (define-key purpose-mode-map (kbd "C-x C-f") nil)
+         (setq-default purpose-user-regexp-purposes (quote (("^ ?\\*.*\\* ?$" . stars))))
+         (purpose-compile-user-configuration)
+         ))
+
+(use-package shackle
+  :ensure t
+  :config
+  (progn (setq helm-display-function 'pop-to-buffer) ; make helm play nice
+         (setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :size 0.35)))
+         (shackle-mode)))
 
 (use-package neotree
   :ensure t
@@ -115,6 +135,12 @@
   (progn (setq-default neo-autorefresh nil))
   :bind (("C-o e" . neotree-toggle)
          ("C-o n f" . neotree-find)))
+
+(global-set-key (kbd "C-o p") (lambda ()
+                                (interactive)
+                                (helm-projectile-on)
+                                (neotree-toggle)
+                                (purpose-mode)))
 
 (use-package expand-region
   :ensure t
