@@ -10,12 +10,12 @@
       (tool-bar-mode -1)
       (scroll-bar-mode -1)))
 
-
 (setq indent-tabs-mode nil)
 (show-paren-mode)
 (electric-pair-mode)
 
 (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
+(add-to-list 'default-frame-alist '(background-color . "black"))
 
 (defconst backup-dir
   (expand-file-name (concat "backups/" (user-real-login-name) "/")
