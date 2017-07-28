@@ -33,6 +33,7 @@
     js2-mode
     js2-refactor
     xref-js2 ;; depends on the_silver_searcher
+    rjsx-mode
 
     sass-mode
     jade-mode
@@ -201,7 +202,7 @@
   :ensure t
   :config
   (progn (add-hook 'js2-mode-hook #'js2-refactor-mode)
-         (js2r-add-keybindings-with-prefix "C-c C-r")
+         (js2r-add-keybindings-with-prefix "C-c C-j")
          (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
 
 (use-package xref-js2
@@ -210,6 +211,9 @@
   (progn (define-key js-mode-map (kbd "M-.") nil)
          (add-hook 'js2-mode-hook (lambda ()
                                     (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))))
+
+(use-package rjsx-mode
+  :ensure t)
 
 (use-package jade-mode
   :ensure t

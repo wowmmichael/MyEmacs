@@ -1,6 +1,8 @@
 (global-unset-key "\C-o")
 (global-unset-key "\C-t")
 
+(setq ns-pop-up-frames nil)
+
 (windmove-default-keybindings)
 
 (if (display-graphic-p)
