@@ -222,7 +222,8 @@
   :ensure t
   :mode "\\.js$"
   :config
-  (progn (add-hook 'js2-mode-hook (lambda () (js-utils/update-flycheck-javascript-eslint-executable)))))
+  (progn (add-hook 'js2-mode-hook (lambda () (js-utils/update-flycheck-javascript-eslint-executable)))
+         (setq-default js2-basic-offset 2)))
 
 (use-package js2-refactor
   :ensure t
