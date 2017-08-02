@@ -8,6 +8,10 @@
     magit
     helm
 
+    helm-ag
+    ;; helm-do-grep-ag is not functioning very well on my windows machine,
+    ;; but fortunately this one does work
+
     ;; project-explorer
     neotree
 
@@ -106,11 +110,18 @@
          ("M-y" . helm-show-kill-ring)
          ("C-x b" . helm-mini)
          ("C-x C-f" . helm-find-files)
-         ("C-x l" . helm-occur)))
+         ("C-x l" . helm-occur)
+         ("C-o s" . helm-do-grep-ag)))
+
 
 (use-package helm-projectile
   :ensure t
   :bind (("C-o o" . helm-projectile-find-file-dwim)))
+
+(if *is-win*
+    (use-package helm-ag
+      :ensure t
+      :bind (("C-o s" . helm-ag-project-root))))
 
 (use-package window-purpose
   :ensure t
@@ -133,8 +144,7 @@
   :ensure t
   :config
   (progn (setq-default neo-autorefresh nil))
-  :bind (("C-o e" . neotree-toggle)
-         ("C-o n f" . neotree-find)))
+  :bind (("C-o n f" . neotree-find)))
 
 (global-set-key (kbd "C-o p") (lambda ()
                                 (interactive)
