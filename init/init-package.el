@@ -111,6 +111,7 @@
          ("C-x b" . helm-mini)
          ("C-x C-f" . helm-find-files)
          ("C-x l" . helm-occur)
+         ("C-?" . helm-apropos)
          ("C-o s" . helm-do-grep-ag)))
 
 
