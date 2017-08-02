@@ -147,7 +147,7 @@
   (progn (setq-default neo-autorefresh nil))
   :bind (("C-o n f" . neotree-find)))
 
-(global-set-key (kbd "C-o p") (lambda ()
+(global-set-key (kbd "C-o !") (lambda ()
                                 (interactive)
                                 (helm-projectile-on)
                                 (neotree-toggle)
