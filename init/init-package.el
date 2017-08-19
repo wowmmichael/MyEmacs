@@ -149,6 +149,7 @@
 
 (global-set-key (kbd "C-o !") (lambda ()
                                 (interactive)
+                                (projectile-mode)
                                 (helm-projectile-on)
                                 (neotree-toggle)
                                 (purpose-mode)))
