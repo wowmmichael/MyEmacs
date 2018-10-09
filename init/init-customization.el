@@ -1,14 +1,16 @@
+(require 'platform-utils)
+(require 'resolve-terminal-key)
+
 (global-unset-key "\C-o")
 (global-unset-key "\C-t")
-
-(setq ns-pop-up-frames nil)
 
 (windmove-default-keybindings)
 
 (if (display-graphic-p)
     (progn
       (tool-bar-mode -1)
-      (scroll-bar-mode -1)))
+      (scroll-bar-mode -1))
+  (resolve-terminal-key/iterm2))
 
 (setq indent-tabs-mode nil)
 (show-paren-mode)
@@ -37,7 +39,7 @@
  backup-directory-alist (list (cons "." backup-dir))
  auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
-(when *is-win*
+(when (platform-utils/is-win-p)
   (setq exec-path (cons "c:/cygwin64/bin" exec-path)))
 
 (defun my-prog-nuke-trailing-whitespace ()

@@ -1,63 +1,5 @@
 (require 'use-package)
-
-(defvar my-ensured-packages
-  '(
-    use-package
-    s
-    sublime-themes
-    magit
-    helm
-
-    helm-ag
-    ;; helm-do-grep-ag is not functioning very well on my windows machine,
-    ;; but fortunately this one does work
-
-    ;; project-explorer
-    neotree
-
-    projectile
-    helm-projectile
-
-    window-purpose
-    shackle
-
-    expand-region
-
-    ace-jump-mode
-    ace-jump-zap
-    ace-mc
-
-    multiple-cursors
-    ;; auto-complete
-    company
-    company-statistics
-
-    buffer-move
-    yasnippet
-    paredit
-
-    markdown-mode
-    web-mode
-    js2-mode
-    js2-refactor
-    xref-js2 ;; depends on the_silver_searcher
-    rjsx-mode
-
-    sass-mode
-    jade-mode
-
-    json-mode
-
-    ;; tide
-    haskell-mode
-    elpy
-    sphinx-doc
-
-    flycheck
-
-    powershell ;; if on windows
-    ))
-
+(require 'platform-utils)
 
 ;;; require package in MyEmacs/elisp
 (use-package sys-utils
@@ -102,7 +44,8 @@
   :bind (("C-o g" . magit-status))
   :config
   (progn (setq magit-commit-show-diff nil)
-         (setq magit-revert-buffers 1)))
+         (setq magit-revert-buffers 1)
+         (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)))
 
 (use-package helm
   :ensure t
@@ -119,10 +62,10 @@
   :ensure t
   :bind (("C-o o" . helm-projectile-find-file-dwim)))
 
-(if *is-win*
-    (use-package helm-ag
-      :ensure t
-      :bind (("C-o s" . helm-ag-project-root))))
+
+(use-package helm-ag
+  :ensure t
+  :bind (("C-o s" . helm-ag-project-root)))
 
 (use-package window-purpose
   :ensure t
@@ -173,11 +116,6 @@
   :ensure t
   :bind (("C-o z" . ace-jump-zap-to-char)))
 
-
-;; (use-package auto-complete
-;;   :ensure t
-;;   :config
-;;   (global-auto-complete-mode))
 
 (use-package company
   :ensure t
@@ -315,7 +253,7 @@
 
 
 
-(when *is-win*
+(when (platform-utils/is-win-p)
   (use-package powershell
     :ensure t
     :config
