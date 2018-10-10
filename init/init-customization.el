@@ -3,6 +3,7 @@
 
 (global-unset-key "\C-o")
 (global-unset-key "\C-t")
+(global-unset-key "\C-m")
 
 (windmove-default-keybindings)
 

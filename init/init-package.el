@@ -12,18 +12,26 @@
          ("C-o f" . eu/indent-buffer)
          ("C-o h" . eu/collapse-around)))
 
+(use-package buffer-utils
+  :bind (("C-o b" . buffer-utils/generate-buffer)))
+
 (use-package js-utils)
 
+(use-package esup
+  :defer t
+  :ensure t)
 
 (use-package spaceline
+  :defer 1
   :ensure t
-  :demand
   :config
   (progn (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main))))
          (if (boundp 'ns-use-srgb-colorspace)
              (setq ns-use-srgb-colorspace nil))))
 
-(use-package spaceline-config :ensure spaceline
+(use-package spaceline-config
+  :defer 1
+  :ensure spaceline
   :config
   (spaceline-helm-mode 1)
   (spaceline-emacs-theme))
@@ -40,6 +48,7 @@
   :demand)
 
 (use-package magit
+  :defer t
   :ensure t
   :bind (("C-o g" . magit-status))
   :config
@@ -48,6 +57,7 @@
          (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)))
 
 (use-package helm
+  :defer t
   :ensure t
   :bind (("M-x" . helm-M-x)
          ("M-y" . helm-show-kill-ring)
@@ -59,15 +69,18 @@
 
 
 (use-package helm-projectile
+  :defer t
   :ensure t
   :bind (("C-o o" . helm-projectile-find-file-dwim)))
 
 
 (use-package helm-ag
+  :defer t
   :ensure t
   :bind (("C-o s" . helm-ag-project-root)))
 
 (use-package window-purpose
+  :defer t
   :ensure t
   :config
   (progn (setq-default purpose-preferred-prompt 'helm)
@@ -78,6 +91,7 @@
          ))
 
 (use-package shackle
+  :defer t
   :ensure t
   :config
   (progn (setq helm-display-function 'pop-to-buffer) ; make helm play nice
@@ -85,6 +99,7 @@
          (shackle-mode)))
 
 (use-package neotree
+  :defer t
   :ensure t
   :config
   (progn (setq-default neo-autorefresh nil))
@@ -98,49 +113,48 @@
                                 (purpose-mode)))
 
 (use-package expand-region
+  :defer t
   :ensure t
   :bind (("C-x =" . er/expand-region)))
 
 (use-package ace-jump-mode
+  :defer t
   :ensure t
-  :bind (("C-t" . ace-jump-mode)))
+  :bind (("M-'" . ace-jump-mode)))
 
 (use-package multiple-cursors
-  :ensure t)
+  :defer t
+  :ensure t
+  :bind (("C-m a" . mc/mark-all-like-this)
+         ("C-m m" . mc/mark-all-dwim)
+         ("C-m n" . mc/mark-next-like-this)
+         ("C-m u" . mc/mark-pop)
+         ("C-m N" . mc/unmark-next-like-this)
+         ("C-m l" . mc/edit-lines)))
 
 (use-package ace-mc
+  :defer t
   :ensure t
-  :bind (("C-o m" . ace-mc-add-multiple-cursors)))
+  :bind (("C-m '" . ace-mc-add-multiple-cursors)))
 
 (use-package ace-jump-zap
+  :defer t
   :ensure t
   :bind (("C-o z" . ace-jump-zap-to-char)))
 
 
 (use-package company
-  :ensure t
-  :bind (("C-o SPC" . company-dabbrev-code))
-  :config
-  (progn (global-company-mode)
-         (setq company-backends
-               '((company-dabbrev-code company-keywords company-capf :seperate)
-                 (company-abbrev :seperate company-dabbrev)
-                 (company-files
-                  company-yasnippet)))
-         (add-hook 'lisp-interaction-mode-hook
-                   (lambda()
-                     (add-to-list (make-local-variable 'company-backends)
-                                  'company-elisp)))
-         (custom-set-variables
-          '(company-dabbrev-minimum-length 2)
-          '(company-minimum-prefix-length 2))))
+  :defer t
+  :ensure t)
 
 (use-package company-statistics
+  :defer t
   :ensure t
   :config
   (company-statistics-mode))
 
 (use-package buffer-move
+  :defer t
   :ensure t
   :bind (("<M-S-up>" . buf-move-up)
          ("<M-S-down>" . buf-move-down)
@@ -148,61 +162,54 @@
          ("<M-S-right>" . buf-move-right)))
 
 (use-package yasnippet
+  :defer t
   :ensure t
   :config
   (yas-global-mode t))
 
 (use-package paredit
+  :defer t
   :ensure t)
 
 (use-package markdown-mode
-  :ensure t)
+  :defer t
+  :ensure t
+  :mode "\\.md$")
 
 (use-package web-mode
+  :defer t
   :ensure t
   :mode "\\.html?$")
 
 (use-package sass-mode
+  :defer t
   :ensure t
   :mode "\\.scss$"
   :config
   (setq sass-indent-offset 4))
 
 (use-package js2-mode
+  :defer t
   :ensure t
   :mode "\\.js$"
   :config
   (progn (add-hook 'js2-mode-hook (lambda () (js-utils/update-flycheck-javascript-eslint-executable)))
          (setq-default js2-basic-offset 2)))
 
-(use-package js2-refactor
-  :ensure t
-  :config
-  (progn (add-hook 'js2-mode-hook #'js2-refactor-mode)
-         (js2r-add-keybindings-with-prefix "C-c C-j")
-         (define-key js2-mode-map (kbd "C-k") #'js2r-kill)))
-
-(use-package xref-js2
-  :ensure t
-  :config
-  (progn (define-key js-mode-map (kbd "M-.") nil)
-         (add-hook 'js2-mode-hook (lambda ()
-                                    (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))))
-
-(use-package rjsx-mode
-  :ensure t)
-
 (use-package jade-mode
+  :defer t
   :ensure t
   :mode "\\.jade$")
 
 
 (use-package json-mode
   :ensure t
+  :defer t
   :mode "\\.json$")
 
 
 (use-package haskell-mode
+  :defer t
   :ensure t
   :config
   (progn (add-hook 'haskell-mode-hook
@@ -212,6 +219,7 @@
                                   company-backends))))))
 
 (use-package ghc
+  :defer t
   :ensure t
   :config
   (progn (autoload 'ghc-init "ghc" nil t)
@@ -219,6 +227,7 @@
          (add-hook 'haskell-mode-hook (lambda () (ghc-init)))))
 
 (use-package elpy
+  :defer t
   :ensure t
   :config
   (progn (elpy-enable)
@@ -228,10 +237,9 @@
                      (setq tab-width 4)
                      (setq python-indent 4)))))
 
-(use-package sphinx-doc
-  :ensure t)
 
 (use-package flycheck-haskell
+  :defer t
   :ensure t
   :config
   (eval-after-load 'flycheck
@@ -239,6 +247,7 @@
 
 
 (use-package flycheck
+  :defer t
   :ensure t
   :config
   (progn (setq-default flycheck-temp-prefix ".flycheck")
@@ -255,6 +264,7 @@
 
 (when (platform-utils/is-win-p)
   (use-package powershell
+    :defer t
     :ensure t
     :config
     (progn (add-to-list 'auto-mode-alist '("\\.psm1$" . powershell-mode))
