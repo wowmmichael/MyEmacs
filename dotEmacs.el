@@ -4,6 +4,8 @@
 (let ((default-directory (file-name-as-directory (concat user-emacs-directory *my-emacs*))))
   (normal-top-level-add-subdirs-to-load-path))
 
+(setq gc-cons-threshold (* 5 1000 1000))
+
 (require 'package)
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")))
