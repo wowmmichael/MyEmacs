@@ -10,7 +10,11 @@
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")))
 
+(setq load-prefer-newer t)
 (package-initialize)
+(require 'auto-compile)
+(auto-compile-on-load-mode)
+(auto-compile-on-save-mode)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)

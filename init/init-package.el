@@ -6,11 +6,6 @@
   :bind (("C-o C-s" . su/start-cmd)
          ("C-o C-e" . su/start-explorer)))
 
-(use-package edit-utils
-  :bind (("<M-up>" . eu/swap-line-up)
-         ("<M-down>" . eu/swap-line-down)
-         ("C-o f" . eu/indent-buffer)
-         ("C-o h" . eu/collapse-around)))
 
 (use-package buffer-utils
   :bind (("C-o b" . buffer-utils/generate-buffer)))
@@ -112,35 +107,8 @@
                                 (neotree-toggle)
                                 (purpose-mode)))
 
-(use-package expand-region
-  :defer t
-  :ensure t
-  :bind (("C-x =" . er/expand-region)))
 
-(use-package ace-jump-mode
-  :defer t
-  :ensure t
-  :bind (("M-'" . ace-jump-mode)))
-
-(use-package multiple-cursors
-  :defer t
-  :ensure t
-  :bind (("C-m a" . mc/mark-all-like-this)
-         ("C-m m" . mc/mark-all-dwim)
-         ("C-m n" . mc/mark-next-like-this)
-         ("C-m u" . mc/mark-pop)
-         ("C-m N" . mc/unmark-next-like-this)
-         ("C-m l" . mc/edit-lines)))
-
-(use-package ace-mc
-  :defer t
-  :ensure t
-  :bind (("C-m '" . ace-mc-add-multiple-cursors)))
-
-(use-package ace-jump-zap
-  :defer t
-  :ensure t
-  :bind (("C-o z" . ace-jump-zap-to-char)))
+(require 'module-edit-utils)
 
 
 (use-package company
@@ -235,7 +203,7 @@
                    (lambda ()
                      (setq indent-tabs-mode nil)
                      (setq tab-width 4)
-                     (setq python-indent 4)))))
+                     (setq python-indent-offset 4)))))
 
 
 (use-package flycheck-haskell
