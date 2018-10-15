@@ -47,9 +47,8 @@
   :ensure t
   :bind (("C-o g" . magit-status))
   :config
-  (progn (setq magit-commit-show-diff nil)
-         (setq magit-revert-buffers 1)
-         (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)))
+  (setq magit-commit-show-diff nil)
+  (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 
 (use-package helm
   :defer t
