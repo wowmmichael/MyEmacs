@@ -8,8 +8,10 @@
 
 (if (display-graphic-p)
     (progn
-      (tool-bar-mode -1)
-      (scroll-bar-mode -1))
+      (if (fboundp 'tool-bar-mode)
+          (tool-bar-mode -1))
+      (if (fboundp 'scroll-bar-mode)
+          (scroll-bar-mode -1)))
   (resolve-terminal-key/iterm2))
 
 (setq indent-tabs-mode nil)
@@ -51,8 +53,5 @@
           'my-prog-nuke-trailing-whitespace)
 
 (setq inhibit-compacting-font-caches t)
-
-(setq org-export-backends
-      (quote (ascii html icalendar latex md)))
 
 (provide 'init-customization)
