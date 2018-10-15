@@ -109,17 +109,8 @@
 
 
 (require 'module-edit-utils)
+(require 'module-completion)
 
-
-(use-package company
-  :defer t
-  :ensure t)
-
-(use-package company-statistics
-  :defer t
-  :ensure t
-  :config
-  (company-statistics-mode))
 
 (use-package buffer-move
   :defer t
@@ -176,60 +167,6 @@
   :mode "\\.json$")
 
 
-(use-package haskell-mode
-  :defer t
-  :ensure t
-  :config
-  (progn (add-hook 'haskell-mode-hook
-                   (lambda ()
-                     (set (make-local-variable 'company-backends)
-                          (append '((company-capf company-dabbrev-code))
-                                  company-backends))))))
-
-(use-package ghc
-  :defer t
-  :ensure t
-  :config
-  (progn (autoload 'ghc-init "ghc" nil t)
-         (autoload 'ghc-debug "ghc" nil t)
-         (add-hook 'haskell-mode-hook (lambda () (ghc-init)))))
-
-(use-package elpy
-  :defer t
-  :ensure t
-  :config
-  (progn (elpy-enable)
-         (add-hook 'python-mode-hook
-                   (lambda ()
-                     (setq indent-tabs-mode nil)
-                     (setq tab-width 4)
-                     (setq python-indent-offset 4)))))
-
-
-(use-package flycheck-haskell
-  :defer t
-  :ensure t
-  :config
-  (eval-after-load 'flycheck
-    '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)))
-
-
-(use-package flycheck
-  :defer t
-  :ensure t
-  :config
-  (progn (setq-default flycheck-temp-prefix ".flycheck")
-         (setq-default flycheck-emacs-lisp-load-path 'inherit)
-         (setq-default flycheck-disabled-checkers
-                       (append flycheck-disabled-checkers
-                               '(emacs-lisp-checkdoc
-                                 json-jsonlist)))
-         (flycheck-add-mode 'javascript-eslint 'web-mode)
-         (setq-default flycheck-temp-prefix ".flycheck")
-         (global-flycheck-mode)))
-
-
-
 (when (platform-utils/is-win-p)
   (use-package powershell
     :defer t
@@ -239,5 +176,9 @@
            (add-to-list 'auto-mode-alist '("\\.ps1$" . powershell-mode)))))
 
 
+
+(require 'module-python)
+
+(require 'module-flycheck)
 
 (provide 'init-package)
