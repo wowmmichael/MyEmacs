@@ -39,4 +39,9 @@
          ("C-o f" . eu/indent-buffer)
          ("C-o h" . eu/collapse-around)))
 
+(use-package outline-magic
+  :ensure t
+  :defer t
+  :bind (("M-+" . outline-cycle)))
+
 (provide 'module-edit-utils)

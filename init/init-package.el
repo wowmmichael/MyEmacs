@@ -166,6 +166,10 @@
   :mode "\\.json$")
 
 
+(use-package docker
+  :ensure t
+  :defer t)
+
 (when (platform-utils/is-win-p)
   (use-package powershell
     :defer t
