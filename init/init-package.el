@@ -73,16 +73,8 @@
   :ensure t
   :bind (("C-o s" . helm-ag-project-root)))
 
-(use-package window-purpose
-  :defer t
-  :ensure t
-  :config
-  (progn (setq-default purpose-preferred-prompt 'helm)
-         (define-key purpose-mode-map (kbd "C-x b") nil)
-         (define-key purpose-mode-map (kbd "C-x C-f") nil)
-         (setq-default purpose-user-regexp-purposes (quote (("^ ?\\*.*\\* ?$" . stars))))
-         (purpose-compile-user-configuration)
-         ))
+
+(require 'module-window-purpose)
 
 (use-package shackle
   :defer t
@@ -124,6 +116,10 @@
   :ensure t
   :config
   (yas-global-mode t))
+
+(use-package yasnippet-snippets
+  :defer t
+  :ensure t)
 
 (use-package paredit
   :defer t

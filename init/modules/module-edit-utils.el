@@ -19,14 +19,15 @@
 (use-package ace-jump-mode
   :ensure t
   :defer t
-  :bind (("M-\\" . ace-jump-mode)
-         ("M-|" . ace-jump-line-mode)))
+  :bind (("<f2> <f2>" . ace-jump-mode)
+         ("<f2> l" . ace-jump-line-mode)
+         ("<f2> w" . ace-jump-word-mode)))
 
 (use-package ace-mc
   :ensure t
   :defer t
   :bind (:map stephenwan/mc-keys-map
-              ("M-\\" . ace-mc-add-multiple-cursors)))
+              ("<f2> <f2>" . ace-mc-add-multiple-cursors)))
 
 (use-package expand-region
   :defer t
@@ -39,9 +40,15 @@
          ("C-o f" . eu/indent-buffer)
          ("C-o h" . eu/collapse-around)))
 
+(defun stephenwan/outline-magic-all-in-one ()
+  (interactive)
+  (unless (bound-and-true-p outline-minor-mode)
+    (outline-minor-mode))
+  (outline-cycle))
+
 (use-package outline-magic
   :ensure t
   :defer t
-  :bind (("M-+" . outline-cycle)))
+  :bind (("M-|" . stephenwan/outline-magic-all-in-one)))
 
 (provide 'module-edit-utils)
