@@ -174,9 +174,9 @@
     (progn (add-to-list 'auto-mode-alist '("\\.psm1$" . powershell-mode))
            (add-to-list 'auto-mode-alist '("\\.ps1$" . powershell-mode)))))
 
-
-
 (require 'module-python)
+
+(require 'module-rust)
 
 (require 'module-flycheck)
 
