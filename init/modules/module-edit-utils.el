@@ -6,7 +6,8 @@
 (use-package multiple-cursors
   :ensure t
   :defer t
-  :bind (("M-0" . mc/mark-next-like-this)
+  :bind (("M-=" . mc/mark-next-like-this)
+         ("M-+" . mc/mark-next-like-this)
          ("M--" . mc/skip-to-next-like-this)
          ("M-_" . mc/unmark-next-like-this)
          :map stephenwan/mc-keys-map
@@ -32,7 +33,7 @@
 (use-package expand-region
   :defer t
   :ensure t
-  :bind (("M-=" . er/expand-region)))
+  :bind (("C-w" . er/expand-region)))
 
 (use-package edit-utils
   :bind (("<M-up>" . eu/swap-line-up)
