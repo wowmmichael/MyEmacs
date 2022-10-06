@@ -10,8 +10,6 @@
 (use-package buffer-utils
   :bind (("C-o b" . buffer-utils/generate-buffer)))
 
-(use-package js-utils)
-
 (use-package esup
   :defer t
   :ensure t)
@@ -68,10 +66,10 @@
   :bind (("C-o o" . helm-projectile-find-file-dwim)))
 
 
-(use-package helm-ag
+(use-package helm-rg
   :defer t
   :ensure t
-  :bind (("C-o s" . helm-ag-project-root)))
+  :bind (("C-o s" . helm-rg)))
 
 
 (require 'module-window-purpose)
@@ -130,41 +128,10 @@
   :ensure t
   :mode "\\.md$")
 
-(use-package web-mode
-  :defer t
-  :ensure t
-  :mode "\\.html?$")
-
-(use-package sass-mode
-  :defer t
-  :ensure t
-  :mode "\\.scss$"
-  :config
-  (setq sass-indent-offset 4))
-
-(use-package js2-mode
-  :defer t
-  :ensure t
-  :mode "\\.js$"
-  :config
-  (progn (add-hook 'js2-mode-hook (lambda () (js-utils/update-flycheck-javascript-eslint-executable)))
-         (setq-default js2-basic-offset 2)))
-
-(use-package jade-mode
-  :defer t
-  :ensure t
-  :mode "\\.jade$")
-
-
 (use-package json-mode
   :ensure t
   :defer t
   :mode "\\.json$")
-
-
-(use-package docker
-  :ensure t
-  :defer t)
 
 (when (platform-utils/is-win-p)
   (use-package powershell
@@ -174,9 +141,6 @@
     (progn (add-to-list 'auto-mode-alist '("\\.psm1$" . powershell-mode))
            (add-to-list 'auto-mode-alist '("\\.ps1$" . powershell-mode)))))
 
-(require 'module-python)
-
-(require 'module-rust)
 
 (require 'module-flycheck)
 

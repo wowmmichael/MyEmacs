@@ -53,5 +53,6 @@
           'my-prog-nuke-trailing-whitespace)
 
 (setq inhibit-compacting-font-caches t)
+(setq inhibit-startup-screen t)
 
 (provide 'init-customization)
