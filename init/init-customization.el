@@ -3,8 +3,7 @@
 
 (global-unset-key "\C-o")
 (global-unset-key "\C-t")
-
-(windmove-default-keybindings)
+(global-unset-key "\C-d")
 
 (if (display-graphic-p)
     (progn

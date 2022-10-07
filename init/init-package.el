@@ -6,7 +6,6 @@
   :bind (("C-o C-s" . su/start-cmd)
          ("C-o C-e" . su/start-explorer)))
 
-
 (use-package buffer-utils
   :bind (("C-o b" . buffer-utils/generate-buffer)))
 
@@ -72,7 +71,7 @@
   :bind (("C-o s" . helm-rg)))
 
 
-(require 'module-window-purpose)
+(require 'module-window)
 
 (use-package shackle
   :defer t
@@ -101,23 +100,17 @@
 (require 'module-completion)
 
 
-(use-package buffer-move
-  :defer t
-  :ensure t
-  :bind (("<M-S-up>" . buf-move-up)
-         ("<M-S-down>" . buf-move-down)
-         ("<M-S-left>" . buf-move-left)
-         ("<M-S-right>" . buf-move-right)))
-
-(use-package yasnippet
-  :defer t
-  :ensure t
-  :config
-  (yas-global-mode t))
-
-(use-package yasnippet-snippets
-  :defer t
-  :ensure t)
+;; disable as it is incompatible with org-mode
+;;
+;; (use-package yasnippet
+;;   :defer t
+;;   :ensure t
+;;   :config
+;;   (yas-global-mode t))
+;;
+;; (use-package yasnippet-snippets
+;;   :defer t
+;;   :ensure t)
 
 (use-package paredit
   :defer t
@@ -141,7 +134,13 @@
     (progn (add-to-list 'auto-mode-alist '("\\.psm1$" . powershell-mode))
            (add-to-list 'auto-mode-alist '("\\.ps1$" . powershell-mode)))))
 
+(when (platform-utils/is-osx-p)
+  (use-package osx-dictionary
+    :defer t
+    :ensure t
+    :bind (("C-d ?" . osx-dictionary-search-word-at-point))))
 
+(require 'module-org)
 (require 'module-flycheck)
 
 (provide 'init-package)
