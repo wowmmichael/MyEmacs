@@ -92,8 +92,7 @@
                                 (interactive)
                                 (projectile-mode)
                                 (helm-projectile-on)
-                                (neotree-toggle)
-                                (purpose-mode)))
+                                (neotree-toggle)))
 
 
 (require 'module-edit-utils)

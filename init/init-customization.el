@@ -17,7 +17,7 @@
 (show-paren-mode)
 (electric-pair-mode)
 
-(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
+(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-12"))
 (add-to-list 'default-frame-alist '(background-color . "black"))
 
 (defconst backup-dir
