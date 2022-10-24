@@ -13,6 +13,20 @@
   :defer t
   :ensure t)
 
+(use-package ts
+  :ensure t
+  :demand)
+
+(use-package tzc
+  :ensure t
+  :demand)
+
+(use-package org-bullets
+  :ensure t
+  :defer t
+  :hook (org-mode . org-bullets-mode)
+  )
+
 (use-package spaceline
   :defer 1
   :ensure t
