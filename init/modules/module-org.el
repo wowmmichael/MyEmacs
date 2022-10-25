@@ -258,8 +258,8 @@
              (start* (stephen/convert-timestamp-timezone start from-zone to-zone))
              (end* (if end (stephen/convert-timestamp-timezone end from-zone to-zone)))
              (to-zone* (stephen/format-tz-string to-zone))
-             (convert-range (lambda () (if (and start* end*) (format "[%s]--[%s] %s" start* end* to-zone*))))
-             (convert-ts (lambda () (if start* (format "[%s] %s" start* to-zone*))))
+             (convert-range (lambda () (if (and start* end*) (format "%s--%s %s" start* end* to-zone*))))
+             (convert-ts (lambda () (if start* (format "%s %s" start* to-zone*))))
              (o (if end* (funcall convert-range) (funcall convert-ts))))
         (if o
             (progn (message o)
@@ -281,9 +281,37 @@
 
 (defun stephen/convert-timestamp-timezone (s from-zone to-zone)
   (if (stephen/org-timestamp-has-time? s)
-      (let* ((ts-dt (ts-parse-org s))
-             (ts-dt* (stephen/ts--convert-timezone ts-dt from-zone to-zone)))
-        (stephen/format-ts-to-timestamp ts-dt*))))
+      (let ((time-pair (stephen/extract-times-from-timerange s)))
+        (if time-pair
+            (let* ((ts-dt-s (ts-parse-org (car time-pair)))
+                   (ts-dt-e (ts-parse-org (cdr time-pair)))
+                   (ts-dt-s* (stephen/ts--convert-timezone ts-dt-s from-zone to-zone))
+                   (ts-dt-e* (stephen/ts--convert-timezone ts-dt-e from-zone to-zone))
+                   (same-date (= (ts-d ts-dt-s*) (ts-d ts-dt-e*)))
+                   (s_ (stephen/format-ts-to-timestamp ts-dt-s*)))
+              (if same-date
+                  (format "[%s-%s]" s_ (ts-format "%H:%M" ts-dt-e*))
+                (format "[%s]--[%s]" s_ (stephen/format-ts-to-timestamp ts-dt-e*))))
+          (let* ((ts-dt (ts-parse-org s))
+                 (ts-dt* (stephen/ts--convert-timezone ts-dt from-zone to-zone)))
+            (format "[%s]" (stephen/format-ts-to-timestamp ts-dt*)))))))
+
+
+(defconst stephen/timerange-regexp
+  "\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\)[^0-9]+\\([0-9]\\{2\\}:[0-9]\\{2\\}\\)--?\\([0-9]\\{2\\}:[0-9]\\{2\\}\\)"
+  "Regex for a pair of time value.")
+
+
+(defun stephen/extract-times-from-timerange (s)
+  (save-match-data
+    (if (string-match stephen/timerange-regexp s)
+        (let ((date-part (match-string 1 s))
+              (time-part-s (match-string 2 s))
+              (time-part-e (match-string 3 s)))
+          (cons
+           (concat date-part " " time-part-s)
+           (concat date-part " " time-part-e))))))
+
 
 
 (defun stephen/ts--convert-timezone (ts-dt from-zone to-zone)

@@ -19,6 +19,8 @@
 
 (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-12"))
 (add-to-list 'default-frame-alist '(background-color . "black"))
+(add-to-list 'default-frame-alist '(width . 100))
+(add-to-list 'default-frame-alist '(height . 180))
 
 (defconst backup-dir
   (expand-file-name (concat "backups/" (user-real-login-name) "/")
