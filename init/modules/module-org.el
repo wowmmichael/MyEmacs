@@ -7,6 +7,7 @@
 (require 'org-tempo)
 (require 'org-keys)
 
+
 (defvar org-my-dir
   (let* ((home-dir (file-name-as-directory (getenv "HOME")))
          (doc-dir (file-name-as-directory (concat home-dir "Documents"))))
@@ -14,6 +15,14 @@
 
 (defvar org-my-image-dir
   (file-name-as-directory (concat org-my-dir "images")))
+
+
+(use-package org-bullets
+  :ensure t
+  :hook (org-mode . org-bullets-mode))
+
+(use-package org-indent
+  :hook (org-mode . org-indent-mode))
 
 (use-package org-download
   :ensure t
@@ -117,7 +126,7 @@
        (("t" "todo" entry (file org-refile-file)
          "* TODO %?\n%U\n" :clock-in t :clock-resume t)
         ("r" "reading" entry (file org-reading-file)
-         "* TODO Read - %?\n%^{TITLE}p\n%^{LINK}p\n%^{AUTHOR}p\n" :clock-resume t :prepend t :empty-lines 1)
+         "* TODO [#C] Read -%?\n%^{TITLE}p\n%^{LINK}p\n%^{AUTHOR}p\n" :clock-resume t :prepend t :empty-lines 1)
         ("n" "note" entry (file org-refile-file)
          "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
         )))
@@ -220,6 +229,7 @@
 
 (setq org-use-speed-commands t)
 (setq org-adapt-indentation 'headline-data)
+(setq org-edit-src-content-indentation 0)
 (setq org-blank-before-new-entry '((heading . t) (plain-list-item . auto)))
 (setq org-id-link-to-org-use-id t)
 (setq org-log-into-drawer t)
